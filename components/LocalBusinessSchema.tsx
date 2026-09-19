@@ -8,7 +8,7 @@ export default function LocalBusinessSchema() {
     legalName: business.name,
     image: "https://www.sinkopmg.com.au/logos/sinko-plumbing-logo.webp",
     url: "https://www.sinkopmg.com.au/",
-    telephone: business.phone,
+    telephone: "+61413776437",
     email: business.email,
     address: {
       "@type": "PostalAddress",
