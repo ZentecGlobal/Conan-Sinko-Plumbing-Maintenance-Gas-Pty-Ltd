@@ -248,7 +248,7 @@ export default function ServicesPage() {
               alt="Caravan plumbing fit-out completed by Sinko Plumbing on a Lotus Trooper caravan"
               aspectRatio="aspect-[4/3]"
               variant="offset"
-              className="lg:order-2"
+              className="order-2"
               interactive
             >
               <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/0 to-transparent" />
@@ -259,7 +259,7 @@ export default function ServicesPage() {
                 </p>
               </div>
             </FramedImage>
-            <div className="lg:order-1">
+            <div className="order-1">
               <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-navy">
                 <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
                 Caravan Plumbing
