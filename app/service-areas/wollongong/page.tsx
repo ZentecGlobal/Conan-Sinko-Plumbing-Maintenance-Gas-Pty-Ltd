@@ -141,7 +141,7 @@ export default function WollongongPage() {
 
       <section className="bg-body py-16 sm:py-20" aria-labelledby="wollongong-faq-heading">
         <Container className="max-w-3xl">
-          <FadeIn>
+          <FadeIn className="text-center">
             <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-navy">
               <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
               FAQ

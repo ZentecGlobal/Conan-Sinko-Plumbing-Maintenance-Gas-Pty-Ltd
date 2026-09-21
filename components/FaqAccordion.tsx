@@ -16,7 +16,7 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-border overflow-hidden rounded-3xl border border-border bg-surface shadow-[0_2px_8px_rgba(11,31,51,0.06),0_12px_24px_rgba(11,31,51,0.06)]">
+    <div className="mx-auto divide-y divide-border overflow-hidden rounded-3xl text-left border border-border bg-surface shadow-[0_2px_8px_rgba(11,31,51,0.06),0_12px_24px_rgba(11,31,51,0.06)]">
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         const panelId = `faq-panel-${index}`;
