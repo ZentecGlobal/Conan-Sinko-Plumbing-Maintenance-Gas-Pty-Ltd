@@ -197,7 +197,7 @@ export default function AboutPage() {
                 <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <a
                     href={business.phoneHref}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-4 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
                   >
                     <Phone className="h-4 w-4" aria-hidden="true" />
                     Call Now: {business.phone}

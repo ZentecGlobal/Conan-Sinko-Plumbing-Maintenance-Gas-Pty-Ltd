@@ -100,13 +100,13 @@ export default function HomePage() {
         </div>
         <div className="flex min-h-[560px] flex-col justify-center gap-6 px-6 py-20 sm:px-10 sm:py-28 lg:px-16">
           <FadeIn className="flex flex-col items-start gap-6">
-            <p className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-navy-dark/70 px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-accent backdrop-blur-sm">
+            <p className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-navy-dark/70 px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-white backdrop-blur-sm">
               <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-accent motion-reduce:animate-none" />
               24/7 Emergency Plumbing · Illawarra Region
             </p>
             <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.55)] sm:text-5xl md:text-6xl">
               Fast, Licensed{" "}
-              <span className="text-accent">Emergency Plumbing</span> When You
+              Emergency Plumbing When You
               Need It Most
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-white/85 [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
@@ -117,13 +117,13 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href={business.phoneHref}
-                className="rounded-full bg-accent px-8 py-4 text-center font-bold text-accent-text shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-xl"
+                className="rounded-full bg-cta px-8 py-4 text-center font-bold text-cta-text shadow-lg shadow-cta/30 transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-xl"
               >
                 Call Now: {business.phone}
               </a>
               <Link
                 href="/contact"
-                className="rounded-full border border-white/30 bg-navy-dark/40 px-8 py-4 text-center font-bold text-white backdrop-blur-sm transition-colors hover:border-accent hover:text-accent"
+                className="rounded-full border border-white/30 bg-navy-dark/40 px-8 py-4 text-center font-bold text-white backdrop-blur-sm transition-colors hover:border-accent hover:text-white"
               >
                 Request a Free Quote
               </Link>

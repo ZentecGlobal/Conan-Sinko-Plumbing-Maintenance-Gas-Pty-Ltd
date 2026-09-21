@@ -43,8 +43,8 @@ export default function FramedImage({
 }: FramedImageProps) {
   const frameClasses =
     variant === "offset"
-      ? `shadow-[10px_10px_0_0_#1c2439] ${interactive ? "hover:shadow-[14px_14px_0_0_#1c2439]" : ""}`
-      : `border-[4px] border-navy shadow-[0_2px_8px_rgba(28,36,57,0.15),0_12px_24px_rgba(28,36,57,0.12),0_24px_48px_rgba(28,36,57,0.08)] sm:border-[6px] ${
+      ? `shadow-[10px_10px_0_0_#0B1F33] ${interactive ? "hover:shadow-[14px_14px_0_0_#0B1F33]" : ""}`
+      : `border-[4px] border-navy shadow-[0_2px_8px_rgba(11,31,51,0.15),0_12px_24px_rgba(11,31,51,0.12),0_24px_48px_rgba(11,31,51,0.08)] sm:border-[6px] ${
           interactive ? "hover:shadow-2xl" : ""
         }`;
 

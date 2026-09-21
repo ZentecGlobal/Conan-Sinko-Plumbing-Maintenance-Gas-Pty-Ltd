@@ -1,22 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9fa;
-  --foreground: #1c1c1c;
+  /* Client palette (Sept 2026): deep navy, strong blue, teal, cool off-white, charcoal */
+  --background: #f4f7f8;
+  --foreground: #202a32;
 
-  --color-navy: #1c2439;
-  --color-navy-dark: #141a2b;
-  --color-navy-light: #2a3550;
+  --color-navy: #0b1f33;
+  --color-navy-dark: #202a32; /* charcoal: raised panels + overlays on navy */
+  --color-navy-light: #202a32; /* charcoal: hairline borders on navy */
 
-  --color-accent: #f1ff03;
-  --color-accent-soft: #e8f547;
-  --color-accent-text: #1c2439;
+  /* Teal = decorative accent (bars, icon chips, focus/hover fills). Never used for text. */
+  --color-accent: #19afa5;
+  --color-accent-soft: #19afa5;
+  --color-accent-text: #0b1f33;
 
-  --color-body: #f8f9fa;
+  /* Strong blue = primary call-to-action buttons (white text, 4.5:1) */
+  --color-cta: #087cc1;
+  --color-cta-text: #ffffff;
+
+  --color-body: #f4f7f8;
   --color-surface: #ffffff;
-  --color-ink: #1c1c1c;
-  --color-muted: #6b7280;
-  --color-border: #e5e7eb;
+  --color-ink: #202a32;
+  --color-muted: #56626c;
+  --color-border: #d6dadc;
 }
 
 @theme inline {
@@ -30,6 +36,9 @@
   --color-accent: var(--color-accent);
   --color-accent-soft: var(--color-accent-soft);
   --color-accent-text: var(--color-accent-text);
+
+  --color-cta: var(--color-cta);
+  --color-cta-text: var(--color-cta-text);
 
   --color-body: var(--color-body);
   --color-surface: var(--color-surface);

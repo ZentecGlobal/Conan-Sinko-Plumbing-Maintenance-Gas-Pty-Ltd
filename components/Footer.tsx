@@ -62,13 +62,13 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-accent">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
             Quick Links
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-gray-300">
+          <ul className="mt-4 space-y-2 text-sm text-white/80">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-accent">
+                <Link href={item.href} className="transition-colors hover:text-white hover:underline underline-offset-4">
                   {item.label}
                 </Link>
               </li>
@@ -77,19 +77,19 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-accent">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
             Services
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-gray-300">
+          <ul className="mt-4 space-y-2 text-sm text-white/80">
             {services.slice(0, 6).map((service) => (
               <li key={service.slug}>
-                <Link href={service.href} className="hover:text-accent">
+                <Link href={service.href} className="transition-colors hover:text-white hover:underline underline-offset-4">
                   {service.name}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/services" className="font-medium text-accent hover:underline">
+              <Link href="/services" className="font-medium text-white hover:underline">
                 View all services →
               </Link>
             </li>
@@ -97,19 +97,19 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-accent">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
             Contact
           </h2>
-          <ul className="mt-4 space-y-3 text-sm text-gray-300">
+          <ul className="mt-4 space-y-3 text-sm text-white/80">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              <a href={business.phoneHref} className="hover:text-accent">
+              <a href={business.phoneHref} className="transition-colors hover:text-white hover:underline underline-offset-4">
                 {business.phone}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              <a href={`mailto:${business.email}`} className="hover:text-accent">
+              <a href={`mailto:${business.email}`} className="transition-colors hover:text-white hover:underline underline-offset-4">
                 {business.email}
               </a>
             </li>
@@ -118,7 +118,7 @@ export default function Footer() {
               <span>{business.address.full}</span>
             </li>
           </ul>
-          <p className="mt-4 text-xs leading-relaxed text-gray-400">
+          <p className="mt-4 text-xs leading-relaxed text-white/70">
             Servicing {serviceAreas.slice(0, 4).map((a) => a.name).join(", ")} and
             the wider Illawarra Region.
           </p>
@@ -126,7 +126,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-navy-light">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
             © {year} {business.name}. All rights reserved.
           </p>
@@ -136,14 +136,14 @@ export default function Footer() {
           </p>
         </div>
         <div className="border-t border-navy-light">
-          <div className="mx-auto max-w-6xl px-4 py-4 text-center text-xs text-gray-500 sm:px-6">
+          <div className="mx-auto max-w-6xl px-4 py-4 text-center text-xs text-white/60 sm:px-6">
             <p>
               Powered &amp; Designed by{" "}
               <a
                 href="https://zentecglobal.com.au/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-gray-400 hover:text-accent"
+                className="font-medium text-white/70 hover:text-white"
               >
                 Zentec Global
               </a>

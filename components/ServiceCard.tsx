@@ -21,7 +21,7 @@ export default function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
       <p className="mt-2 flex-1 text-[15px] leading-relaxed text-white/70">
         {service.summary}
       </p>
-      <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-accent group-hover:underline">
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white group-hover:underline">
         {service.hasDedicatedPage ? "Learn more" : "View details"}
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-1"

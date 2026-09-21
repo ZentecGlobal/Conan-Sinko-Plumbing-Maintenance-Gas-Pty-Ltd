@@ -99,7 +99,7 @@ export default function ServicesPage() {
                     <p className="mt-2 flex-1 text-[15px] leading-relaxed text-white/70">
                       {service.summary}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-accent group-hover:underline">
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white group-hover:underline">
                       Learn more
                       <ArrowRight
                         className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -150,7 +150,7 @@ export default function ServicesPage() {
                     <p className="mt-2 flex-1 text-[15px] leading-relaxed text-white/70">
                       {service.summary}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-accent group-hover:underline">
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-white group-hover:underline">
                       {hasExtendedSection ? "Details below" : "Get a Quote"}
                       <ArrowRight
                         className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -208,7 +208,7 @@ export default function ServicesPage() {
               </ul>
               <a
                 href={business.phoneHref}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)]"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Ask About Water Filtration
@@ -289,7 +289,7 @@ export default function ServicesPage() {
               </ul>
               <a
                 href={business.phoneHref}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)]"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Ask About Caravan Plumbing
@@ -335,7 +335,7 @@ export default function ServicesPage() {
               </ul>
               <a
                 href={business.phoneHref}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)]"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Ask About Hot Water Systems
@@ -403,7 +403,7 @@ export default function ServicesPage() {
               </ul>
               <a
                 href={business.phoneHref}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)]"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Ask About Bathroom Renovations

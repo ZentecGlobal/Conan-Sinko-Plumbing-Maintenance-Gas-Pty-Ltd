@@ -76,8 +76,8 @@ export default function MediaSlider({
   const showCaptionArea = Boolean(slide.label) || hasMultiple;
   const frameClasses =
     variant === "offset"
-      ? "shadow-[10px_10px_0_0_#1c2439] hover:shadow-[14px_14px_0_0_#1c2439]"
-      : "border-[4px] border-navy shadow-[0_2px_8px_rgba(28,36,57,0.15),0_12px_24px_rgba(28,36,57,0.12),0_24px_48px_rgba(28,36,57,0.08)] sm:border-[6px]";
+      ? "shadow-[10px_10px_0_0_#0B1F33] hover:shadow-[14px_14px_0_0_#0B1F33]"
+      : "border-[4px] border-navy shadow-[0_2px_8px_rgba(11,31,51,0.15),0_12px_24px_rgba(11,31,51,0.12),0_24px_48px_rgba(11,31,51,0.08)] sm:border-[6px]";
 
   return (
     <div
@@ -95,7 +95,12 @@ export default function MediaSlider({
           className={`animate-[fade-in_0.3s_ease-out] object-cover ${slide.imageClassName ?? ""}`}
         />
       ) : playingVideo ? (
-        <video controls autoPlay poster={slide.poster} className="h-full w-full object-cover">
+        <video
+          controls
+          autoPlay
+          poster={slide.poster}
+          className="h-full w-full animate-[fade-in_0.3s_ease-out] object-cover"
+        >
           <source src={slide.src} type="video/mp4" />
         </video>
       ) : (
@@ -113,7 +118,7 @@ export default function MediaSlider({
             className={`animate-[fade-in_0.3s_ease-out] object-cover ${slide.imageClassName ?? ""}`}
           />
           <span className="absolute inset-0 flex items-center justify-center bg-navy/40 transition-colors group-hover/play:bg-navy/25">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-text shadow-lg transition-transform group-hover/play:scale-110">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cta text-cta-text shadow-lg transition-transform group-hover/play:scale-110">
               <Play className="ml-0.5 h-6 w-6" aria-hidden="true" fill="currentColor" />
             </span>
           </span>

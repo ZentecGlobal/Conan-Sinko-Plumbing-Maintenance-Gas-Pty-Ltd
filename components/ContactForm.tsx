@@ -17,7 +17,7 @@ export default function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-2xl border border-accent bg-accent/10 p-6 text-center"
+        className="animate-[page-in_0.4s_ease-out] rounded-2xl border border-accent bg-accent/10 p-6 text-center"
       >
         <p className="font-bold text-navy">Thanks, your message is in!</p>
         <p className="mt-2 text-sm text-muted">
@@ -101,7 +101,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-full bg-accent px-6 py-3.5 font-bold text-accent-text shadow-[0_4px_14px_rgba(241,255,3,0.35)] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(241,255,3,0.45)] sm:w-auto"
+        className="w-full rounded-full bg-cta px-6 py-3.5 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)] sm:w-auto"
       >
         Send Message
       </button>
