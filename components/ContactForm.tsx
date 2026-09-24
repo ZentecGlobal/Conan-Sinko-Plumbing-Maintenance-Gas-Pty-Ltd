@@ -1,28 +1,71 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
+import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
+import { business, services } from "@/lib/constants";
 
-// TODO: wire this up to a real submission target — e.g. a Next.js Route Handler
-// at app/api/contact/route.ts that emails the lead, or a form service like
-// Formspree/Resend. Currently this only simulates a successful submission.
-export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "submitted">("idle");
+type ContactFormProps = {
+  /** "light" for white cards, "dark" for glass panels on navy */
+  tone?: "light" | "dark";
+  /** Compact = name, phone, service, message (used in the homepage hero) */
+  compact?: boolean;
+  submitLabel?: string;
+};
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+/** Enquiry form. Posts to /api/contact, which emails the lead via Resend. */
+export default function ContactForm({ tone = "light", compact = false, submitLabel = "Send Message" }: ContactFormProps) {
+  const [status, setStatus] = useState<"idle" | "sending" | "submitted" | "error">("idle");
+  const [error, setError] = useState("");
+  // Unique ids so several forms can live on one page (hero + footer form on the homepage)
+  const uid = useId();
+  const id = (name: string) => `${uid}-${name}`;
+  const dark = tone === "dark";
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("submitted");
+    setStatus("sending");
+    setError("");
+    const payload = {
+      ...Object.fromEntries(new FormData(event.currentTarget)),
+      // Tells the business which page/form the lead came from
+      page: `${window.location.pathname}${compact ? " (quick quote form)" : ""}`,
+    };
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) throw new Error(data.error || "We couldn't send your message.");
+      setStatus("submitted");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "We couldn't send your message.");
+      setStatus("error");
+    }
   }
+
+  const label = `block text-sm font-medium ${dark ? "text-white/80" : "text-ink"}`;
+  const field = `mt-1.5 w-full rounded-xl border px-4 py-3 transition-all duration-300 focus:outline-none focus:ring-4 ${
+    dark
+      ? "border-white/15 bg-white/[0.06] text-white placeholder:text-white/35 focus:border-accent focus:bg-white/[0.09] focus:ring-accent/20"
+      : "border-border bg-surface text-ink placeholder:text-muted focus:border-cta focus:ring-cta/15"
+  }`;
 
   if (status === "submitted") {
     return (
       <div
         role="status"
-        className="animate-[page-in_0.4s_ease-out] rounded-2xl border border-accent bg-accent/10 p-6 text-center"
+        className={`animate-rise flex flex-col items-center rounded-2xl border p-8 text-center ${
+          dark ? "border-accent/40 bg-accent/10" : "border-accent bg-accent/10"
+        }`}
       >
-        <p className="font-bold text-navy">Thanks, your message is in!</p>
-        <p className="mt-2 text-sm text-muted">
-          We&apos;ll be in touch shortly. For anything urgent, please call us
-          directly.
+        <CheckCircle2 className="h-10 w-10 text-accent" aria-hidden="true" />
+        <p className={`mt-3 font-display text-xl font-bold ${dark ? "text-white" : "text-navy"}`}>
+          Thanks, your message is in!
+        </p>
+        <p className={`mt-2 text-sm ${dark ? "text-white/70" : "text-muted"}`}>
+          We&apos;ll be in touch shortly. For anything urgent, please call us directly.
         </p>
       </div>
     );
@@ -30,81 +73,114 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Honeypot: hidden from people and screen readers; bots fill it in and get silently dropped */}
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor={id("company")}>Company</label>
+        <input id={id("company")} name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-ink">
+          <label htmlFor={id("name")} className={label}>
             Full name
           </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            autoComplete="name"
-            className="mt-1.5 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink placeholder:text-muted transition-colors focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
-          />
+          <input id={id("name")} name="name" type="text" required autoComplete="name" className={field} />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-ink">
+          <label htmlFor={id("phone")} className={label}>
             Phone number
           </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            required
-            autoComplete="tel"
-            className="mt-1.5 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink placeholder:text-muted transition-colors focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
-          />
+          <input id={id("phone")} name="phone" type="tel" required autoComplete="tel" className={field} />
         </div>
       </div>
 
+      {!compact && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor={id("email")} className={label}>
+              Email address
+            </label>
+            <input id={id("email")} name="email" type="email" required autoComplete="email" className={field} />
+          </div>
+          <div>
+            <label htmlFor={id("suburb")} className={label}>
+              Suburb
+            </label>
+            <input id={id("suburb")} name="suburb" type="text" placeholder="e.g. Corrimal" className={field} />
+          </div>
+        </div>
+      )}
+
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-ink">
-          Email address
+        <label htmlFor={id("service")} className={label}>
+          Service needed
         </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className="mt-1.5 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink placeholder:text-muted transition-colors focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
-        />
+        <select id={id("service")} name="service" defaultValue="" className={`${field} appearance-none`}>
+          <option value="" disabled className="text-ink">
+            Select a service
+          </option>
+          {services.map((s) => (
+            <option key={s.slug} value={s.name} className="text-ink">
+              {s.name}
+            </option>
+          ))}
+          <option value="Other" className="text-ink">
+            Something else
+          </option>
+        </select>
       </div>
 
       <div>
-        <label htmlFor="suburb" className="block text-sm font-medium text-ink">
-          Suburb
-        </label>
-        <input
-          id="suburb"
-          name="suburb"
-          type="text"
-          placeholder="e.g. Corrimal"
-          className="mt-1.5 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink placeholder:text-muted transition-colors focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-ink">
+        <label htmlFor={id("message")} className={label}>
           How can we help?
         </label>
         <textarea
-          id="message"
+          id={id("message")}
           name="message"
-          rows={4}
+          rows={compact ? 3 : 4}
           required
-          className="mt-1.5 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink placeholder:text-muted transition-colors focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+          placeholder="Tell us a bit about the job"
+          className={`${field} resize-none`}
         />
       </div>
 
+      {status === "error" && (
+        <div
+          role="alert"
+          className={`animate-rise flex items-start gap-3 rounded-xl border p-4 text-sm ${
+            dark ? "border-red-400/40 bg-red-500/10 text-white" : "border-red-200 bg-red-50 text-red-900"
+          }`}
+        >
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" aria-hidden="true" />
+          <p>
+            {error} Please try again, or call us on{" "}
+            <a href={business.phoneHref} className="font-bold underline underline-offset-2">
+              {business.phone}
+            </a>
+            .
+          </p>
+        </div>
+      )}
+
       <button
         type="submit"
-        className="w-full rounded-full bg-cta px-6 py-3.5 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)] sm:w-auto"
+        disabled={status === "sending"}
+        className="btn-primary group w-full px-6 py-4 disabled:cursor-wait disabled:opacity-80"
       >
-        Send Message
+        {status === "sending" ? (
+          <>
+            Sending
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+          </>
+        ) : (
+          <>
+            {submitLabel}
+            <Send className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-1" aria-hidden="true" />
+          </>
+        )}
       </button>
+      <p className={`text-center text-xs ${dark ? "text-white/50" : "text-muted"}`}>
+        Free, no-obligation quote. For emergencies, please call us directly.
+      </p>
     </form>
   );
 }

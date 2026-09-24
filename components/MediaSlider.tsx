@@ -76,12 +76,12 @@ export default function MediaSlider({
   const showCaptionArea = Boolean(slide.label) || hasMultiple;
   const frameClasses =
     variant === "offset"
-      ? "shadow-[10px_10px_0_0_#0B1F33] hover:shadow-[14px_14px_0_0_#0B1F33]"
-      : "border-[4px] border-navy shadow-[0_2px_8px_rgba(11,31,51,0.15),0_12px_24px_rgba(11,31,51,0.12),0_24px_48px_rgba(11,31,51,0.08)] sm:border-[6px]";
+      ? "rounded-[2rem] border-[6px] border-white shadow-[0_30px_70px_-30px_rgba(11,31,51,0.6)] ring-1 ring-border hover:shadow-[0_40px_80px_-30px_rgba(11,31,51,0.7)]"
+      : "rounded-2xl border-[4px] border-navy shadow-[0_2px_8px_rgba(11,31,51,0.15),0_12px_24px_rgba(11,31,51,0.12),0_24px_48px_rgba(11,31,51,0.08)] sm:border-[6px]";
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl transition-all ${frameClasses} ${aspectRatio} ${className}`}
+      className={`group relative overflow-hidden transition-all duration-500 ${frameClasses} ${aspectRatio} ${className}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -92,7 +92,7 @@ export default function MediaSlider({
           alt={slide.alt}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className={`animate-[fade-in_0.3s_ease-out] object-cover ${slide.imageClassName ?? ""}`}
+          className={`animate-[slide-in_0.8s_var(--ease-out-expo)] object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105 ${slide.imageClassName ?? ""}`}
         />
       ) : playingVideo ? (
         <video

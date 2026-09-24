@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  /* Client palette (Sept 2026): deep navy, strong blue, teal, cool off-white, charcoal */
+  /* Client palette (Sept 2026): deep navy, strong blue, teal, cool off-white, charcoal.
+     Extra navy steps are derived from the base navy so dark sections have depth
+     instead of one flat block colour. */
   --background: #f4f7f8;
   --foreground: #202a32;
 
   --color-navy: #0b1f33;
-  --color-navy-dark: #202a32; /* charcoal: raised panels + overlays on navy */
-  --color-navy-light: #202a32; /* charcoal: hairline borders on navy */
+  --color-navy-950: #06121f; /* deepest: footer, hero base */
+  --color-navy-dark: #10283f; /* raised panels + overlays on navy */
+  --color-navy-light: #1e3a56; /* hairline borders on navy */
 
-  /* Teal = decorative accent (bars, icon chips, focus/hover fills). Never used for text. */
+  /* Teal = decorative accent (bars, icon chips, glows, focus/hover fills). Never used for body text on light bg. */
   --color-accent: #19afa5;
-  --color-accent-soft: #19afa5;
+  --color-accent-soft: #7fe0d8;
   --color-accent-text: #0b1f33;
 
   /* Strong blue = primary call-to-action buttons (white text, 4.5:1) */
   --color-cta: #087cc1;
+  --color-cta-hover: #0a6aa6;
   --color-cta-text: #ffffff;
 
   --color-body: #f4f7f8;
@@ -23,6 +27,8 @@
   --color-ink: #202a32;
   --color-muted: #56626c;
   --color-border: #d6dadc;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -30,6 +36,7 @@
   --color-foreground: var(--foreground);
 
   --color-navy: var(--color-navy);
+  --color-navy-950: var(--color-navy-950);
   --color-navy-dark: var(--color-navy-dark);
   --color-navy-light: var(--color-navy-light);
 
@@ -38,6 +45,7 @@
   --color-accent-text: var(--color-accent-text);
 
   --color-cta: var(--color-cta);
+  --color-cta-hover: var(--color-cta-hover);
   --color-cta-text: var(--color-cta-text);
 
   --color-body: var(--color-body);
@@ -46,8 +54,11 @@
   --color-muted: var(--color-muted);
   --color-border: var(--color-border);
 
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-bricolage);
   --font-mono: var(--font-geist-mono);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
@@ -56,8 +67,23 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Headings get the display face with tighter tracking */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-bricolage), var(--font-figtree), sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-navy);
 }
 
 /* Offset anchor scroll targets so the sticky header doesn't cover them */
@@ -65,23 +91,334 @@ html {
   scroll-margin-top: 6rem;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* Custom classes live in the components layer so Tailwind utilities can still override them */
+@layer components {
+  /* ---------- Buttons ---------- */
 
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+  .btn-primary,
+  .btn-ghost {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition:
+      transform 0.4s var(--ease-out-expo),
+      box-shadow 0.4s var(--ease-out-expo),
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
   }
-  to {
+
+  .btn-primary {
+    background: var(--color-cta);
+    color: var(--color-cta-text);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 8px 24px -6px rgba(8, 124, 193, 0.6);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-cta-hover);
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 14px 32px -8px rgba(8, 124, 193, 0.75),
+      0 0 0 4px rgba(25, 175, 165, 0.25);
+  }
+
+  /* Light sweep across the button on hover */
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.8s var(--ease-out-expo);
+  }
+
+  .btn-primary:hover::after {
+    transform: translateX(120%);
+  }
+
+  .btn-primary:active,
+  .btn-ghost:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn-ghost {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-accent);
+    background: rgba(25, 175, 165, 0.12);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Decorative backgrounds ---------- */
+
+  /* Faint blueprint grid for navy sections, fading out toward the edges */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(rgba(127, 224, 216, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 224, 216, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  /* Cursor-following highlight; --mx/--my are set by SpotlightCard */
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(25, 175, 165, 0.22),
+      transparent 45%
+    );
+    transition: opacity 0.4s ease;
+  }
+
+  .spotlight:hover::before {
     opacity: 1;
-    transform: translateY(0);
+  }
+
+  /* Gradient hairline border that lights up on hover */
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(140deg, rgba(127, 224, 216, 0.6), rgba(8, 124, 193, 0.2) 40%, transparent 70%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+  }
+
+  .glow-border:hover::after {
+    opacity: 1;
+  }
+
+  /* ---------- Text reveal (RevealText) ---------- */
+
+  .reveal-line {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .reveal-word {
+    display: inline-block;
+    animation: word-up 0.9s var(--ease-out-expo) both;
+  }
+
+  /* ---------- Keyframes ---------- */
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes word-up {
+    from {
+      transform: translateY(105%) rotate(4deg);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0) rotate(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.12) translate3d(1.5%, 1%, 0);
+    }
+    to {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(40px, -30px) scale(1.1);
+    }
+    66% {
+      transform: translate(-30px, 20px) scale(0.95);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-cue {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(14px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes flow {
+    to {
+      stroke-dashoffset: -40;
+    }
+  }
+
+  .animate-rise {
+    animation: rise 0.9s var(--ease-out-expo) both;
+  }
+
+  .text-shimmer {
+    background: linear-gradient(90deg, #7fe0d8 0%, #ffffff 25%, #19afa5 50%, #ffffff 75%, #7fe0d8 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+
+
+  /* ---------- Header nav ---------- */
+
+  /* Underline that grows from the centre on hover and stays on the active page */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.2rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-soft));
+    transform: scaleX(0);
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  .nav-link:hover::after,
+  .nav-link[data-active]::after {
+    transform: scaleX(1);
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    25% {
+      transform: rotate(-14deg);
+    }
+    75% {
+      transform: rotate(14deg);
+    }
   }
 }
 

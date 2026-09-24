@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import Container from "./Container";
-import FadeIn from "./FadeIn";
+import HeroBackdrop from "./HeroBackdrop";
+import RevealText from "./RevealText";
 import { business } from "@/lib/constants";
 
 type TextHeroProps = {
@@ -13,39 +14,35 @@ type TextHeroProps = {
   children?: ReactNode;
 };
 
-/** Plain navy, text-only hero — no photo or slider. Used by hub pages. */
+/** Navy, text-only hero — no photo or slider. Used by hub pages. */
 export default function TextHero({ eyebrow, title, description, children }: TextHeroProps) {
   return (
-    <section className="bg-navy py-14 sm:py-20">
+    <section className="relative isolate overflow-hidden py-16 sm:py-24">
+      <HeroBackdrop />
       <Container>
-        <FadeIn className="flex flex-col items-start gap-4">
-          <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white">
-            <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
+        <div className="flex flex-col items-start gap-5">
+          <p className="animate-rise inline-flex items-center gap-2 rounded-full border border-accent/30 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent-soft backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent motion-safe:animate-pulse" aria-hidden="true" />
             {eyebrow}
           </p>
-          <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
-            {title}
+          <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl">
+            <RevealText text={title} delay={120} />
           </h1>
-          <p className="max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
+          <p className="animate-rise max-w-2xl text-base leading-relaxed text-white/75 [animation-delay:450ms] sm:text-lg">
             {description}
           </p>
-          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={business.phoneHref}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
-            >
+          <div className="animate-rise mt-2 flex w-full flex-col gap-3 [animation-delay:600ms] sm:w-auto sm:flex-row">
+            <a href={business.phoneHref} className="btn-primary px-7 py-3.5">
               <Phone className="h-4 w-4" aria-hidden="true" />
               Call Now: {business.phone}
             </a>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/30 bg-navy-dark/40 px-6 py-3 font-bold text-white backdrop-blur-sm transition-colors hover:border-accent hover:text-white"
-            >
+            <Link href="/contact" className="btn-ghost group px-7 py-3.5">
               Request a Free Quote
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
-          {children}
-        </FadeIn>
+          {children && <div className="animate-rise w-full [animation-delay:750ms]">{children}</div>}
+        </div>
       </Container>
     </section>
   );

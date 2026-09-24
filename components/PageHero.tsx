@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { BadgeCheck, Clock, ShieldCheck } from "lucide-react";
 import Container from "./Container";
-import FadeIn from "./FadeIn";
+import HeroBackdrop from "./HeroBackdrop";
+import RevealText from "./RevealText";
 import { business } from "@/lib/constants";
 
 type PageHeroProps = {
@@ -11,41 +12,43 @@ type PageHeroProps = {
   children?: ReactNode;
 };
 
+const badges = [
+  { icon: ShieldCheck, label: `Licensed ${business.licenseNumber}` },
+  { icon: Clock, label: "24/7 Emergency" },
+  { icon: BadgeCheck, label: "Free Quotes" },
+];
+
 export default function PageHero({ eyebrow, title, description, children }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-white py-14 sm:py-20">
+    <section className="relative isolate overflow-hidden py-16 sm:py-24">
+      <HeroBackdrop />
       <Container className="relative">
-        <FadeIn>
-          {eyebrow && (
-            <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-navy">
-              <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
-              {eyebrow}
-            </p>
-          )}
-          <h1 className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
-            {title}
-          </h1>
-          {description && (
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
-              {description}
-            </p>
-          )}
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-semibold text-ink/70">
-            <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-navy" aria-hidden="true" />
-              Licensed {business.licenseNumber}
+        {eyebrow && (
+          <p className="animate-rise inline-flex items-center gap-2 rounded-full border border-accent/30 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent-soft backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent motion-safe:animate-pulse" aria-hidden="true" />
+            {eyebrow}
+          </p>
+        )}
+        <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl">
+          <RevealText text={title} delay={150} />
+        </h1>
+        {description && (
+          <p className="animate-rise mt-5 max-w-2xl text-base leading-relaxed text-white/75 [animation-delay:450ms] sm:text-lg">
+            {description}
+          </p>
+        )}
+        <div className="animate-rise mt-7 flex flex-wrap items-center gap-2 text-sm font-semibold text-white/85 [animation-delay:600ms]">
+          {badges.map((badge) => (
+            <span
+              key={badge.label}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 backdrop-blur transition-colors duration-300 hover:border-accent"
+            >
+              <badge.icon className="h-4 w-4 text-accent" aria-hidden="true" />
+              {badge.label}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-4 w-4 text-navy" aria-hidden="true" />
-              24/7 Emergency
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <BadgeCheck className="h-4 w-4 text-navy" aria-hidden="true" />
-              Free Quotes
-            </span>
-          </div>
-          {children}
-        </FadeIn>
+          ))}
+        </div>
+        {children}
       </Container>
     </section>
   );

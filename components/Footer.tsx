@@ -25,8 +25,16 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy text-white/80">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <footer className="relative isolate overflow-hidden bg-navy-950 text-white/75">
+      <div className="bg-blueprint pointer-events-none absolute inset-0 -z-10 opacity-50" aria-hidden="true" />
+      {/* Oversized watermark wordmark */}
+      <p
+        className="pointer-events-none absolute -bottom-[0.18em] left-1/2 -z-10 -translate-x-1/2 select-none whitespace-nowrap font-display text-[22vw] font-extrabold leading-none tracking-tighter text-white/[0.025] lg:text-[16rem]"
+        aria-hidden="true"
+      >
+        SINKO
+      </p>
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-14 pt-16 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-1">
           <Link href="/" className="flex items-center">
             <Image
@@ -47,14 +55,14 @@ export default function Footer() {
             <a
               href={business.social.facebook}
               aria-label="Sinko Plumbing on Facebook"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-accent hover:text-accent-text"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-accent hover:text-accent-text"
             >
               <FacebookIcon />
             </a>
             <a
               href={business.social.instagram}
               aria-label="Sinko Plumbing on Instagram"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-accent hover:text-accent-text"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-accent hover:text-accent-text"
             >
               <InstagramIcon />
             </a>
@@ -62,13 +70,14 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white after:mt-3 after:block after:h-0.5 after:w-8 after:rounded-full after:bg-accent">
             Quick Links
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/80">
+          <ul className="mt-5 space-y-2.5 text-sm text-white/70">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="transition-colors hover:text-white hover:underline underline-offset-4">
+                <Link href={item.href} className="group inline-flex items-center transition-colors duration-300 hover:text-white">
+                  <span className="mr-0 h-px w-0 bg-accent transition-all duration-300 group-hover:mr-2 group-hover:w-3" aria-hidden="true" />
                   {item.label}
                 </Link>
               </li>
@@ -77,19 +86,20 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white after:mt-3 after:block after:h-0.5 after:w-8 after:rounded-full after:bg-accent">
             Services
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/80">
+          <ul className="mt-5 space-y-2.5 text-sm text-white/70">
             {services.slice(0, 6).map((service) => (
               <li key={service.slug}>
-                <Link href={service.href} className="transition-colors hover:text-white hover:underline underline-offset-4">
+                <Link href={service.href} className="group inline-flex items-center transition-colors duration-300 hover:text-white">
+                  <span className="mr-0 h-px w-0 bg-accent transition-all duration-300 group-hover:mr-2 group-hover:w-3" aria-hidden="true" />
                   {service.name}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/services" className="font-medium text-white hover:underline">
+              <Link href="/services" className="font-semibold text-accent-soft transition-colors hover:text-white">
                 View all services →
               </Link>
             </li>
@@ -97,19 +107,19 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white after:mt-3 after:block after:h-0.5 after:w-8 after:rounded-full after:bg-accent">
             Contact
           </h2>
-          <ul className="mt-4 space-y-3 text-sm text-white/80">
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              <a href={business.phoneHref} className="transition-colors hover:text-white hover:underline underline-offset-4">
+              <a href={business.phoneHref} className="group inline-flex items-center transition-colors duration-300 hover:text-white">
                 {business.phone}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              <a href={`mailto:${business.email}`} className="transition-colors hover:text-white hover:underline underline-offset-4">
+              <a href={`mailto:${business.email}`} className="group inline-flex items-center transition-colors duration-300 hover:text-white">
                 {business.email}
               </a>
             </li>
@@ -125,7 +135,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-navy-light">
+      <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
             © {year} {business.name}. All rights reserved.
@@ -135,7 +145,7 @@ export default function Footer() {
             {business.director}
           </p>
         </div>
-        <div className="border-t border-navy-light">
+        <div className="border-t border-white/10">
           <div className="mx-auto max-w-6xl px-4 py-4 text-center text-xs text-white/60 sm:px-6">
             <p>
               Powered &amp; Designed by{" "}

@@ -6,5 +6,5 @@ import type { ReactNode } from "react";
  * cost, applied once here instead of on each individual page.
  */
 export default function Template({ children }: { children: ReactNode }) {
-  return <div className="animate-[page-in_0.4s_ease-out]">{children}</div>;
+  return <div className="animate-[page-in_0.6s_var(--ease-out-expo)_both]">{children}</div>;
 }

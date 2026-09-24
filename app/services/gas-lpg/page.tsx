@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, Flame, Gauge, Phone, ShieldAlert } from "lucide-react";
+import { Flame, Gauge, Phone, ShieldAlert } from "lucide-react";
 import Container from "@/components/Container";
-import FaqAccordion from "@/components/FaqAccordion";
 import FadeIn from "@/components/FadeIn";
+import CheckList from "@/components/CheckList";
+import SectionEyebrow from "@/components/SectionEyebrow";
 import FramedImage from "@/components/FramedImage";
+import ServiceHero from "@/components/ServiceHero";
+import FeatureCards from "@/components/FeatureCards";
+import ProcessSteps from "@/components/ProcessSteps";
+import FaqSplit from "@/components/FaqSplit";
+import GetInTouch from "@/components/GetInTouch";
 import { business } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -49,90 +55,41 @@ const faqs = [
 export default function GasLpgPage() {
   return (
     <>
-      {/* HERO — looping background video (poster = static fallback for slow connections / load failure) */}
-      <section className="relative isolate overflow-hidden bg-navy">
-        <div className="absolute inset-0 -z-10">
-          <video
-            className="h-full w-full object-cover opacity-55"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/media/gas/outdoor-gas-kitchen-build.webp"
-          >
-            <source src="/media/videos/outdoor-gas-kitchen.mp4" type="video/mp4" />
-          </video>
-          {/* Solid dark only behind the text; clears up fast so the video reads vividly on the right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-navy from-0% via-navy/85 via-38% to-navy/10 to-70%" />
-        </div>
-        <Container className="flex min-h-[420px] flex-col justify-center gap-6 py-14 sm:py-20">
-          <FadeIn className="flex flex-col items-start gap-4">
-            <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white">
-              <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
-              Service
-            </p>
-            <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.55)] sm:text-4xl md:text-5xl">
-              Gas &amp; LPG Fitting Services
-            </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-white/85 [text-shadow:0_2px_12px_rgba(0,0,0,0.6)] sm:text-lg">
-              Licensed gas fitting for natural gas and LPG: installations,
-              safety checks and emergency leak repairs across the Illawarra.
-            </p>
-            <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={business.phoneHref}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                Call Now: {business.phone}
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 bg-navy-dark/40 px-6 py-3 font-bold text-white backdrop-blur-sm transition-colors hover:border-accent hover:text-white"
-              >
-                Request a Free Quote
-              </Link>
-            </div>
-          </FadeIn>
-        </Container>
-      </section>
+      <ServiceHero
+        eyebrow="Gas & LPG"
+        title="Gas & LPG Install & Repair Across the Illawarra"
+        highlight={["LPG"]}
+        description="Licensed gas fitting for natural gas and LPG: installations, safety checks and emergency leak repairs across the Illawarra."
+        media={{ type: "video", src: "/media/videos/outdoor-gas-kitchen.mp4", poster: "/media/gas/outdoor-gas-kitchen-build.webp" }}
+        bullets={["Licensed gas fitter", "Compliance certificates", "Free quotes"]}
+      />
 
-      <section className="relative overflow-hidden border-y border-border bg-surface py-16 sm:py-20">
-        <div className="pointer-events-none absolute -right-20 top-1/2 -z-0 h-96 w-96 -translate-y-1/2 rounded-full bg-navy/10 blur-3xl" aria-hidden="true" />
+      <section className="relative overflow-hidden border-y border-border bg-surface py-20 sm:py-28">
+        <div className="pointer-events-none absolute -right-20 top-1/2 -z-0 h-96 w-96 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl motion-safe:animate-[drift_20s_ease-in-out_infinite]" aria-hidden="true" />
         <Container className="relative">
-          <FadeIn className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
-              <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-navy">
-                <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
-                What&apos;s Included
-              </p>
-              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <FadeIn variant="left">
+              <SectionEyebrow>What&apos;s Included</SectionEyebrow>
+              <h2 className="mt-4 text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl">
                 Complete Gas &amp; LPG Fitting Services
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-ink/80">
+              <p className="mt-4 text-lg leading-relaxed text-muted">
                 From new appliance connections to emergency leak repairs, our
                 licensed gas fitters handle the complete natural gas and LPG
                 scope for homes and businesses across the Illawarra.
               </p>
-              <ul className="mt-6 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-body">
-                {included.map((item) => (
-                  <li key={item} className="flex items-center gap-3 px-4 py-3 text-ink/80">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy/10 text-navy">
-                      <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                    <span className="font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <CheckList
+                items={included}
+              />
               <a
                 href={business.phoneHref}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 font-bold text-cta-text shadow-[0_4px_14px_rgba(8,124,193,0.35)] transition-all hover:bg-accent hover:text-accent-text hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_6px_20px_rgba(8,124,193,0.45)]"
+                className="mt-6 btn-primary px-6 py-3"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 Get a Free Quote: {business.phone}
               </a>
-            </div>
+            </FadeIn>
+            <FadeIn variant="right" delay={150}>
             <FramedImage
               src="/media/gas/outdoor-gas-kitchen-build.webp"
               alt="Outdoor gas kitchen build with LPG connections installed by Sinko Plumbing"
@@ -149,77 +106,44 @@ export default function GasLpgPage() {
                 </p>
               </div>
             </FramedImage>
-          </FadeIn>
+            </FadeIn>
+          </div>
         </Container>
       </section>
 
-      <section className="bg-body py-16 sm:py-20">
-        <Container>
-          <FadeIn className="grid gap-6 sm:grid-cols-3">
-            <div className="group relative flex flex-col overflow-hidden rounded-2xl bg-navy p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg">
-              <span className="absolute inset-x-0 top-0 h-1 bg-accent" aria-hidden="true" />
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-text">
-                <Flame className="h-6 w-6" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 text-lg font-bold text-white">Installations</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-white/70">
-                Natural gas and LPG appliance, cooktop and heater installations
-                to Australian standards.
-              </p>
-            </div>
-            <div className="group relative flex flex-col overflow-hidden rounded-2xl bg-navy p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg">
-              <span className="absolute inset-x-0 top-0 h-1 bg-accent" aria-hidden="true" />
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-text">
-                <Gauge className="h-6 w-6" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 text-lg font-bold text-white">Safety Checks</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-white/70">
-                Gas safety inspections and compliance certification for homes
-                and businesses.
-              </p>
-            </div>
-            <div className="group relative flex flex-col overflow-hidden rounded-2xl bg-navy p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg">
-              <span className="absolute inset-x-0 top-0 h-1 bg-accent" aria-hidden="true" />
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-text">
-                <ShieldAlert className="h-6 w-6" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 text-lg font-bold text-white">Leak Detection</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-white/70">
-                Rapid response gas leak detection and repair, available for
-                emergency callouts.
-              </p>
-            </div>
-          </FadeIn>
-        </Container>
-      </section>
+      <FeatureCards
+        eyebrow="Our Specialties"
+        title="Safe, compliant gas work every time"
+        description="Every gas job is carried out by a licensed fitter and certified to Australian standards."
+        items={[
+          { icon: Flame, title: "Installations", text: "Natural gas and LPG appliance, cooktop and heater installations to Australian standards." },
+          { icon: Gauge, title: "Safety Checks", text: "Gas safety inspections and compliance certification for homes and businesses." },
+          { icon: ShieldAlert, title: "Leak Detection", text: "Rapid response gas leak detection and repair, available for emergency callouts." },
+        ]}
+      />
 
-      <section className="border-t border-border bg-surface py-16 sm:py-20" aria-labelledby="gas-faq-heading">
-        <Container className="max-w-3xl">
-          <FadeIn className="text-center">
-            <p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-navy">
-              <span className="h-1.5 w-6 rounded-full bg-accent" aria-hidden="true" />
-              FAQ
-            </p>
-            <h2 id="gas-faq-heading" className="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-              Gas &amp; LPG FAQs
-            </h2>
-            <div className="mt-8">
-              <FaqAccordion items={faqs} />
-            </div>
-            <p className="mt-8 text-sm text-ink/70">
-              See all{" "}
-              <Link href="/services" className="text-navy hover:underline">
-                services
-              </Link>{" "}
-              or check our{" "}
-              <Link href="/service-areas" className="text-navy hover:underline">
-                service areas
-              </Link>
-              .
-            </p>
-          </FadeIn>
-        </Container>
-      </section>
+      <ProcessSteps />
+
+      <FaqSplit
+        id="gas-faq-heading"
+        title="Gas & LPG FAQs"
+        items={faqs}
+        footer={
+          <>
+            Servicing Corrimal, Wollongong and the wider Illawarra. See all{" "}
+            <Link href="/services" className="font-semibold text-navy underline decoration-accent/0 decoration-2 underline-offset-4 transition-colors duration-300 hover:decoration-accent">
+              services
+            </Link>{" "}
+            or{" "}
+            <Link href="/service-areas" className="font-semibold text-navy underline decoration-accent/0 decoration-2 underline-offset-4 transition-colors duration-300 hover:decoration-accent">
+              service areas
+            </Link>
+            .
+          </>
+        }
+      />
+
+      <GetInTouch />
     </>
   );
 }
