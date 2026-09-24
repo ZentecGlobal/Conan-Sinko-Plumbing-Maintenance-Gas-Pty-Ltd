@@ -8,7 +8,8 @@ const offerIcons = [ReceiptText, BadgePercent, Gift];
 export default function OffersBanner() {
   return (
     <section aria-label="Current offers" className="relative z-10 -mt-16 px-4 sm:-mt-20 sm:px-6">
-      <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl border border-white/60 bg-surface shadow-[0_30px_70px_-30px_rgba(11,31,51,0.45)] md:grid-cols-3">
+      {/* max-w-[69rem] = Container width minus its padding, so the banner lines up with page content */}
+      <div className="mx-auto grid max-w-[69rem] overflow-hidden rounded-3xl border border-white/60 bg-surface shadow-[0_30px_70px_-30px_rgba(11,31,51,0.45)] md:grid-cols-3">
         {offers.map((offer, i) => {
           const Icon = offerIcons[i] ?? BadgePercent;
           return (

@@ -117,7 +117,7 @@ export default function AboutPage() {
 
             {/* Collage: three real job photos at different depths */}
             <div className="relative mx-auto h-[26rem] w-full max-w-lg sm:h-[30rem]" aria-hidden="true">
-              <Parallax speed={-0.06} className="absolute right-0 top-0 w-[68%]">
+              <Parallax speed={-0.06} className="absolute right-3 top-2 w-[66%]">
                 <div className="animate-rise [animation-delay:300ms]">
                   <div className="relative aspect-[4/5] rotate-2 overflow-hidden rounded-[1.75rem] border-[5px] border-white/90 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-out-expo hover:rotate-0 hover:scale-[1.03]">
                     <Image src="/media/bathrooms/bathroom-vanity-tap-install.webp" alt="" fill priority sizes="(min-width: 1024px) 30vw, 60vw" className="object-cover" />
@@ -151,7 +151,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-              <div className="animate-rise absolute -right-2 bottom-10 [animation-delay:1100ms] sm:-right-4">
+              <div className="animate-rise absolute right-0 bottom-10 [animation-delay:1100ms]">
                 <div className="glow-border flex items-center gap-3 rounded-2xl bg-navy-950/80 p-3 pr-4 shadow-2xl backdrop-blur-xl motion-safe:animate-[float_7s_ease-in-out_1s_infinite]">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cta text-white">
                     <Filter className="h-5 w-5" />
