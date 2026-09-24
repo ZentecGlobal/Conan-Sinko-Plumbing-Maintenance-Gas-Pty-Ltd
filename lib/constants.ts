@@ -152,7 +152,7 @@ export const offers = [
   },
   {
     title: "15% Off for DVA Card Holders",
-    description: "We proudly support veterans with a 15% discount for DVA cardholders.",
+    description: "We proudly support veterans with 15% off for Department of Veterans' Affairs (DVA) cardholders.",
   },
   {
     title: "$50 Off First-Time Customers",
