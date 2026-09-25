@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
+import Logo from "./Logo";
 import { business, nav, serviceAreas, services } from "@/lib/constants";
 
 function FacebookIcon() {
@@ -36,15 +36,8 @@ export default function Footer() {
       </p>
       <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-14 pt-16 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logos/sinko-plumbing-logo.webp"
-              alt={`${business.name} logo`}
-              width={520}
-              height={260}
-              loading="lazy"
-              className="h-14 w-auto"
-            />
+          <Link href="/" aria-label={`${business.name}, home`} className="flex items-center">
+            <Logo size="lg" />
           </Link>
           <p className="mt-4 text-sm leading-relaxed">
             Licensed local plumbers servicing the Illawarra Region for emergency

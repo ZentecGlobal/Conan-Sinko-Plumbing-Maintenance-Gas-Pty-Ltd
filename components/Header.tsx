@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react";
+import Logo from "./Logo";
 import { business, nav, serviceAreas, services } from "@/lib/constants";
 
 // Dedicated-page services first, then the rest — matches the "Our Specialist
@@ -93,15 +93,13 @@ export default function Header() {
           scrolled ? "py-2" : "py-3.5"
         }`}
       >
-        <Link href="/" className="flex shrink-0 items-center" onClick={closeMenu}>
-          <Image
-            src="/logos/sinko-plumbing-logo.webp"
-            alt={`${business.name} logo`}
-            width={520}
-            height={260}
-            priority
-            className={`w-auto transition-all duration-500 ease-out-expo hover:scale-105 ${scrolled ? "h-11 sm:h-12" : "h-12 sm:h-14"}`}
-          />
+        <Link
+          href="/"
+          aria-label={`${business.name}, home`}
+          className="flex shrink-0 items-center transition-transform duration-500 ease-out-expo hover:scale-105"
+          onClick={closeMenu}
+        >
+          <Logo size={scrolled ? "sm" : "md"} priority />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
